@@ -583,7 +583,7 @@ Transform:
   - {fileID: 3223302915970269848}
   - {fileID: 2873115241418568488}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6201676392598663770
 MonoBehaviour:
@@ -597,7 +597,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5bc872d3da1d5f48ae2489e5b16351e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  moveSpeed: 2
+  turnSpeed: 2
 --- !u!114 &3772849241704728186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1280,11 +1281,11 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6054620531263205954}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 0125309e38bea8a48bc578cf8f220634, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 8382898d6c9b03e4caa14cd221b0c51f, type: 3}
   m_Controller: {fileID: 9100000, guid: abe8de11a1ab6ed4385e2bc350790ed0, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -1335,6 +1336,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+  turnSpeed: 5
 --- !u!1 &6145211522375356872
 GameObject:
   m_ObjectHideFlags: 0

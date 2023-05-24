@@ -8,15 +8,20 @@ public class PlayerMovement : MonoBehaviour
     const string isIdle = "IsIdle";
     const string isWalking = "IsWalking";
     const string isWalkingBackward = "IsWalkingBackward";
+    const string isTurningLeft = "IsTurningLeft";
+    const string isTurningRight = "IsTurningRight";
 
     [SerializeField] float moveSpeed = 5f;
+    [SerializeField] float turnSpeed = 5f;
 
     Vector2 moveInput;
     Vector3 newPosition;
+    Vector3 movement;
     Animator animator;
 
     float moveXPos;
     float moveZPos;
+    
 
 
     void Start()
@@ -39,33 +44,33 @@ public class PlayerMovement : MonoBehaviour
         moveInput = moveValue.Get<Vector2>();
     }
 
-
+    
     void Move()
     {
         if(moveInput.x == 0f && moveInput.y == 0f) 
         {
-            SetBool(isIdle, true);
             SetBool(isWalking, false);
             SetBool(isWalkingBackward, false);
+            SetBool(isTurningLeft, false);
+            SetBool(isTurningRight, false);
+            SetBool(isIdle, true);
             return; 
         }
 
-        moveXPos = moveInput.x * moveSpeed * Time.deltaTime;
+        moveXPos = moveInput.x * turnSpeed * Mathf.Rad2Deg * Time.deltaTime;
         moveZPos = moveInput.y * moveSpeed * Time.deltaTime;
 
-        newPosition = transform.position + new Vector3(moveXPos, 0f, moveZPos);
-        transform.position = newPosition;
-
-        SetBool(isIdle, false);
+        movement = moveZPos * transform.forward;
+        newPosition = transform.position + movement;
         
-        if(moveInput.y < 0f)
-        {
-            SetBool(isWalkingBackward, true);
-        }
-        else
-        {
-            SetBool(isWalking, true);
-        }
+        transform.position = newPosition;
+        transform.Rotate(0f, moveXPos, 0f, Space.Self);
+        
+        SetBool(isIdle, false);
+        SetBool(isWalking, moveInput.y > 0);
+        SetBool(isWalkingBackward, moveInput.y < 0f);
+        SetBool(isTurningLeft, moveInput.x < 0);
+        SetBool(isTurningRight, moveInput.x > 0);
     }
 
 
@@ -75,3 +80,8 @@ public class PlayerMovement : MonoBehaviour
     }
     
 }
+
+
+
+
+//newPosition = transform.position + new Vector3(0f, 0f, moveZPos);
