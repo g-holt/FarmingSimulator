@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 798c107e59ac7a64e8b193363e29c92f
+guid: 0e29a4fbcaa910647898eabd61581445
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -19,7 +19,7 @@ ModelImporter:
     rigImportErrors: 
     rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Inbetween bone
       rotation in copied configuration does not match rotation in animation file:\n\t'Ball_L'
-      : rotation error = 0.363928 deg\n"
+      : rotation error = 5.639008 deg\n"
     animationImportErrors: 
     animationImportWarnings: "\nClip 'mixamo.com' has import animation warnings that
       might lower retargeting quality:\nNote: Activate translation DOF on avatar
@@ -27,12 +27,9 @@ ModelImporter:
       and has rotation animation that will be discarded.\n\t'Ball_L' is inbetween
       humanoid transforms and has rotation animation that will be discarded.\n"
     animationRetargetingWarnings: "\nRetargeting quality report for clip 'mixamo.com':\n\tLeftLowerLeg
-      average position error 0.6 mm and maximum position error 5.1 mm at time 0:43
-      (60.6%) Frame 43\n\tRightLowerLeg average position error 0.2 mm and maximum
-      position error 1.2 mm at time 0:53 (74.6%) Frame 53\n\tLeftLowerArm average
-      position error 1.7 mm and maximum position error 3.6 mm at time 0:48 (67.6%)
-      Frame 48\n\tRightLowerArm average position error 2.1 mm and maximum position
-      error 4.4 mm at time 0:15 (21.1%) Frame 15\n"
+      average position error 0.4 mm and maximum position error 2.6 mm at time 0:12
+      (24.5%) Frame 12\n\tRightLowerLeg average position error 0.2 mm and maximum
+      position error 1.3 mm at time 0: 3 (6.1%) Frame 3\n"
     animationDoRetargetingWarnings: 1
     importAnimatedCustomProperties: 0
     importConstraints: 0
@@ -43,7 +40,36 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Player_Jog
+      takeName: mixamo.com
+      internalID: -203655887218126122
+      firstFrame: 0
+      lastFrame: 49
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 0
   meshes:
     lODScreenPercentages: []
