@@ -6,16 +6,16 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    const string isIdle = "IsIdle";
-    const string isTurningRight = "IsTurningRight";
-    const string isTurningLeft = "IsTurningLeft";
-    const string isWalking = "IsWalking";
-    const string isWalkingBackward = "IsWalkingBackward";
-    const string isWalkingLeft = "IsWalkingLeft";
-    const string isWalkingRight = "IsWalkingRight";
-    const string isRunning = "IsRunning";
-    const string isRunningRight = "IsRunningRight";
-    const string isRunningLeft = "IsRunningLeft";
+    //const string isIdle = "IsIdle";
+    //const string isTurningRight = "IsTurningRight";
+    //const string isTurningLeft = "IsTurningLeft";
+    //const string isWalking = "IsWalking";
+    //const string isWalkingBackward = "IsWalkingBackward";
+    //const string isWalkingLeft = "IsWalkingLeft";
+    //const string isWalkingRight = "IsWalkingRight";
+    //const string isRunning = "IsRunning";
+    //const string isRunningRight = "IsRunningRight";
+    //const string isRunningLeft = "IsRunningLeft";
     const string vertical = "Vertical";
     const string horizontal = "Horizontal";
 
@@ -33,24 +33,19 @@ public class PlayerMovement : MonoBehaviour
     Vector3 mouseWorldPosition;
     Camera mainCamera;
     Animator animator;
-    //AnimatorControllerParameter[] parameters;
 
     float moveXPos;
     float moveZPos;
     float walkThreshold = .5f;
     float runThreshold = 1f;
-    
-
+   
 
     void Start()
     {
         animator = GetComponentInChildren<Animator>();
 
-        //parameters = animator.parameters;
         mainCamera = Camera.main;
         currThreshold = walkThreshold;
-        //SetBool(isIdle, true);
-        //SetBool(isWalking, false);
     }
 
     
