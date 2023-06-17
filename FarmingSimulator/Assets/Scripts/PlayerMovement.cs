@@ -6,45 +6,34 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    //const string isIdle = "IsIdle";
-    //const string isTurningRight = "IsTurningRight";
-    //const string isTurningLeft = "IsTurningLeft";
-    //const string isWalking = "IsWalking";
-    //const string isWalkingBackward = "IsWalkingBackward";
-    //const string isWalkingLeft = "IsWalkingLeft";
-    //const string isWalkingRight = "IsWalkingRight";
-    //const string isRunning = "IsRunning";
-    //const string isRunningRight = "IsRunningRight";
-    //const string isRunningLeft = "IsRunningLeft";
-    const string vertical = "Vertical";
-    const string horizontal = "Horizontal";
+    const string vertical = "Vertical"; //Controls blend tree vertical float value
+    const string horizontal = "Horizontal"; //Controls blend tree horizontal float value
 
-    [SerializeField] float moveSpeed = 2f;
     [SerializeField] float turnSpeed = 2f;
     [SerializeField] float walkSpeed = 2f;
     [SerializeField] float runSpeed = 5f;
+    [SerializeField] float farmingSpeed = 1f;
     [SerializeField] float currThreshold = .5f;
     [SerializeField] float dampTime = .1f;
 
-    Vector2 moveInput;
-    Vector3 newPosition;
-    Vector3 movement;
-    Vector2 mousePosition;
-    Vector3 mouseWorldPosition;
-    Camera mainCamera;
     Animator animator;
-
+    
+    Vector3 movement; //Holds value of the player input * player forward 
+    Vector2 moveInput; //Input given from player
+    Vector3 newPosition; //Current Position + movement to get the next position for the player
+    
     float moveXPos;
     float moveZPos;
-    float walkThreshold = .5f;
-    float runThreshold = 1f;
-   
+    float moveSpeed; //Set to either walk or run speed
+    float walkThreshold = .5f; //Threshold for blend tree float
+    float runThreshold = 1f; //Threshold for blend tree float
+
 
     void Start()
     {
         animator = GetComponentInChildren<Animator>();
 
-        mainCamera = Camera.main;
+        moveSpeed = walkSpeed;
         currThreshold = walkThreshold;
     }
 
@@ -58,12 +47,6 @@ public class PlayerMovement : MonoBehaviour
     void OnMove(InputValue moveValue)
     {
         moveInput = moveValue.Get<Vector2>();
-    }
-
-
-    void OnMousePosition(InputValue mouseValue)
-    {
-        mousePosition = mouseValue.Get<Vector2>();
     }
 
     
@@ -104,40 +87,24 @@ public class PlayerMovement : MonoBehaviour
     {
         animator.SetBool(animation, state);
     }
+
+
+    public void FarmingMoveSpeed()
+    {
+        moveSpeed = farmingSpeed;
+    }
     
 }
 
 
 
-/*
-
-Player_Idle -> Player_Walking
-IsIdle      false
-IsWalking   true
-IsRunning   false
-
-
-Player_Idle -> Player_Run
-IsWalking       true
-IsRunning       true
-IsIdle          false
-
-
-
-*/
-
-//newPosition = transform.position + new Vector3(0f, 0f, moveZPos);
-
-
-
-
 
 
 
 
 /*
 
-Before trying Blend Tree Movement
+Before Blend Tree Movement
 ==================================
 
 
