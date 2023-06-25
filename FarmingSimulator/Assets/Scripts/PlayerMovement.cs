@@ -12,7 +12,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float turnSpeed = 2f;
     [SerializeField] float walkSpeed = 2f;
     [SerializeField] float runSpeed = 5f;
-    [SerializeField] float farmingSpeed = 1f;
     [SerializeField] float currThreshold = .5f;
     [SerializeField] float dampTime = .1f;
 
@@ -27,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     float moveSpeed; //Set to either walk or run speed
     float walkThreshold = .5f; //Threshold for blend tree float
     float runThreshold = 1f; //Threshold for blend tree float
+    public bool isTilling;
 
 
     void Start()
@@ -59,9 +59,10 @@ public class PlayerMovement : MonoBehaviour
         newPosition = transform.position + movement;
 
         transform.position = newPosition;
-        transform.Rotate(0f, moveXPos, 0f, Space.Self);
-
         animator.SetFloat(vertical, moveInput.y * currThreshold, dampTime, Time.deltaTime);
+
+        if(isTilling) {  return; }
+        transform.Rotate(0f, moveXPos, 0f, Space.Self);
         animator.SetFloat(horizontal, moveInput.x * currThreshold, dampTime, Time.deltaTime);
 
         HandleRun();
@@ -83,15 +84,21 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    void SetBool(string animation, bool state)
+    public void SetBool(string animation, bool state)
     {
         animator.SetBool(animation, state);
     }
 
 
-    public void FarmingMoveSpeed()
+    public void FarmingMoveSpeed(float newSpeed)
     {
-        moveSpeed = farmingSpeed;
+        moveSpeed = newSpeed;
+    }
+
+    
+    public void ResetMoveSpeed()
+    {
+        moveSpeed = walkSpeed;
     }
     
 }
