@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
 {
     const string vertical = "Vertical"; //Controls blend tree vertical float value
     const string horizontal = "Horizontal"; //Controls blend tree horizontal float value
+    const string plantSeedAnim = "PlantSeed";
 
     [SerializeField] float turnSpeed = 2f;
     [SerializeField] float walkSpeed = 2f;
@@ -16,31 +17,43 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float dampTime = .1f;
 
     Animator animator;
+    Transform autoWalkDest;
+    PlayerInput playerInput;
     
     Vector3 movement; //Holds value of the player input * player forward 
     Vector2 moveInput; //Input given from player
     Vector3 newPosition; //Current Position + movement to get the next position for the player
-    
+    Vector3 autoDirection;
+    Vector3 autoMovement;
+    Vector3 autoNewPosition;
+
     float moveXPos;
     float moveZPos;
     float moveSpeed; //Set to either walk or run speed
     float walkThreshold = .5f; //Threshold for blend tree float
     float runThreshold = 1f; //Threshold for blend tree float
+    float distToAutoDest;
+    float autoMoveXPos;
     public bool isTilling;
+    public bool isAutoWalking;
 
 
     void Start()
     {
         animator = GetComponentInChildren<Animator>();
+        playerInput = GetComponent<PlayerInput>();
 
         moveSpeed = walkSpeed;
         currThreshold = walkThreshold;
     }
 
-    
+
     void Update()
     {
         Move();
+
+        if(!isAutoWalking) { return; }
+        AutoWalk();
     }
 
 
@@ -52,6 +65,8 @@ public class PlayerMovement : MonoBehaviour
     
     void Move()
     {
+        if(isAutoWalking) { return; }
+
         moveXPos = moveInput.x * turnSpeed * Mathf.Rad2Deg * Time.deltaTime;
         moveZPos = moveInput.y * moveSpeed * Time.deltaTime;
 
@@ -84,9 +99,47 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    public void SetBool(string animation, bool state)
+    public void AutoWalk()
     {
-        animator.SetBool(animation, state);
+        StartCoroutine(CheckAutoDestDist());
+
+        autoDirection = (autoWalkDest.position - transform.position).normalized;
+        autoMovement = autoDirection * moveSpeed * Time.deltaTime;
+        autoNewPosition = transform.position + autoMovement;
+
+        if (isTilling) { return; }
+        
+        transform.position = autoNewPosition;
+        animator.SetFloat(vertical, autoDirection.magnitude * currThreshold, dampTime, Time.deltaTime);
+
+        autoMoveXPos = Vector3.Dot(autoMovement.normalized, transform.right) * turnSpeed * Mathf.Rad2Deg * Time.deltaTime;
+        transform.Rotate(0f, autoMoveXPos, 0f, Space.Self);
+        animator.SetFloat(horizontal, autoMoveXPos * currThreshold, dampTime, Time.deltaTime);
+    }
+
+
+    IEnumerator CheckAutoDestDist()
+    {
+        while (isAutoWalking)
+        {
+            distToAutoDest = Vector3.Distance(transform.position, autoWalkDest.position);
+
+            if (distToAutoDest <= .5)
+            {
+                isAutoWalking = false;
+                DisablePlayerInput();
+                SetTrigger(plantSeedAnim);
+            }
+
+            /* Reduces the amount of times we have to run Vector3.Distance() */
+            yield return new WaitForSeconds(1);
+        }
+    }
+
+
+    public void SetAutoWalkDest(Transform autoWalkDest)
+    {
+        this.autoWalkDest = autoWalkDest;
     }
 
 
@@ -101,6 +154,30 @@ public class PlayerMovement : MonoBehaviour
         moveSpeed = walkSpeed;
     }
     
+
+    public void SetBool(string animation, bool state)
+    {
+        animator.SetBool(animation, state);
+    }
+
+
+    public void SetTrigger(string animation)
+    {
+        animator.SetTrigger(animation);
+    }
+
+
+    public void DisablePlayerInput()
+    {
+        playerInput.DeactivateInput();
+    }
+
+
+    public void EnablePlayerInput() 
+    {
+        Debug.Log("Called From Animation Event");
+        playerInput.ActivateInput();
+    }
 }
 
 

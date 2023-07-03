@@ -40,6 +40,15 @@
                     "processors": "",
                     "interactions": "Hold",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "RightClickObject",
+                    "type": "Button",
+                    "id": "b8d61eb9-16b3-4b30-a4a2-64a7db7c4838",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -128,6 +137,17 @@
                     "processors": "",
                     "groups": "Player",
                     "action": "Till",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "27e06b22-fd91-444e-aad3-7729178b4196",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Player",
+                    "action": "RightClickObject",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
